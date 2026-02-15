@@ -1,0 +1,43 @@
+{
+  "durations": [
+    { "id": 1, "name": "۱ ماهه", "days": 30, "emoji": "📅" },
+    { "id": 2, "name": "۲ ماهه", "days": 60, "emoji": "📆" },
+    { "id": 3, "name": "۳ ماهه", "days": 90, "emoji": "🗓" },
+    { "id": 6, "name": "۶ ماهه", "days": 180, "emoji": "📊" },
+    { "id": 12, "name": "۱۲ ماهه", "days": 365, "emoji": "📈" }
+  ],
+  "trafficOptions": {
+    "1": [
+      { "id": "1_30", "traffic": 30, "price": 80000, "connections": 0 },
+      { "id": "1_50", "traffic": 50, "price": 120000, "connections": 0 },
+      { "id": "1_100", "traffic": 100, "price": 200000, "connections": 0 }
+    ],
+    "2": [
+      { "id": "2_60", "traffic": 60, "price": 150000, "connections": 2 },
+      { "id": "2_100", "traffic": 100, "price": 220000, "connections": 3 },
+      { "id": "2_200", "traffic": 200, "price": 350000, "connections": 3 }
+    ],
+    "3": [
+      { "id": "3_100", "traffic": 100, "price": 300000, "connections": 3 },
+      { "id": "3_200", "traffic": 200, "price": 450000, "connections": 3 },
+      { "id": "3_500", "traffic": 500, "price": 700000, "connections": 5 }
+    ],
+    "6": [
+      { "id": "6_200", "traffic": 200, "price": 500000, "connections": 3 },
+      { "id": "6_500", "traffic": 500, "price": 800000, "connections": 5 },
+      { "id": "6_1000", "traffic": 1000, "price": 1200000, "connections": 5 }
+    ],
+    "12": [
+      { "id": "12_500", "traffic": 500, "price": 900000, "connections": 5 },
+      { "id": "12_1000", "traffic": 1000, "price": 1500000, "connections": 5 },
+      { "id": "12_2000", "traffic": 2000, "price": 2500000, "connections": 5 }
+    ]
+  },
+  "messages": {
+    "selectDuration": "📅 لطفاً مدت اشتراک را انتخاب کنید:",
+    "selectTraffic": "📊 لطفاً حجم مورد نظر را انتخاب کنید:\n\n⏳ مدت: {duration}\n\n👇 گزینه مورد نظر را انتخاب کنید:",
+    "planDetails": "📦 جزئیات پلن\n\n⏳ مدت: {duration}\n📊 حجم: {traffic}GB\n🔗 کانکشن: {connections} دستگاه\n💰 قیمت: {price} تومان\n\n💰 موجودی شما: {balance} تومان\n\n{status}",
+    "insufficientBalance": "❌ موجودی کافی نیست!\n\n💰 قیمت پلن: {price} تومان\n💰 موجودی شما: {balance} تومان\n\n📉 کسری: {deficit} تومان\n\nلطفاً ابتدا موجودی خود را افزایش دهید.",
+    "purchaseSuccess": "✅ خرید با موفقیت انجام شد!\n\n📦 پلن: {duration} - {traffic}GB\n⏳ انقضا: {expiryDate}\n🔗 کانکشن: {connections} دستگاه\n\n🔑 کانفیگ:\n<code>{config}</code>\n\n✅ پلن به لیست شما اضافه شد."
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "servers": [
+    {
+      "id": 1,
+      "name": "آلمان ۱",
+      "location": "فرانکفورت",
+      "address": "de1.ragaray.com",
+      "port": "443",
+      "network": "ws",
+      "path": "/ray",
+      "tls": true,
+      "host": "",
+      "ping": 120,
+      "isActive": true
+    },
+    {
+      "id": 2,
+      "name": "هلند ۱",
+      "location": "آمستردام",
+      "address": "nl1.ragaray.com",
+      "port": "443",
+      "network": "ws",
+      "path": "/ray",
+      "tls": true,
+      "host": "",
+      "ping": 110,
+      "isActive": true
+    },
+    {
+      "id": 3,
+      "name": "فرانسه ۱",
+      "location": "پاریس",
+      "address": "fr1.ragaray.com",
+      "port": "443",
+      "network": "grpc",
+      "path": "/service",
+      "tls": true,
+      "host": "",
+      "ping": 135,
+      "isActive": true
+    }
+  ]
+}
