@@ -12,7 +12,7 @@ const formatStatus = (isActive: boolean, expiryDate: Date): string => {
     if (now > expiry) return '⏰ منقضی شده';
 
     const daysLeft = Math.ceil((expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-    return `✅ فعال (${daysLeft} روز مانده)`;
+    return `✅ فعال`;
 };
 
 const formatExpiry = (date: Date): string => {
@@ -26,7 +26,7 @@ const formatPurchase = (purchase: any) => {
         text:
             `📦 ${config.ps || 'کانفیگ'}\n` +
             `⏳ ${purchase.plan.duration} روز | 📊 ${purchase.plan.traffic}GB\n` +
-            `💰 ${purchase.plan.price.toLocaleString()} تومان\n` +
+            `💰 ${purchase.plan.price} تومان\n` +
             `🔌 وضعیت: ${formatStatus(purchase.plan.isActive, purchase.expiryDate)}`,
         callback: `view_config_${purchase.id}`
     };
