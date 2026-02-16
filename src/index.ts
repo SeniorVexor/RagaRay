@@ -61,7 +61,7 @@ const getMainMenuText = (user: any) =>
     `👋 سلام ${user.firstName || 'کاربر عزیز'}!\n\n` +
     `🚀 به راگاری خوامدید!\n` +
     `📡 فروشنده کانفیگ V2Ray با کیفیت بالا\n\n` +
-    `💰 موجودی: ${user.balance.toLocaleString()} تومان\n\n` +
+    `💰 موجودی: ${user.balance} تومان\n\n` +
     `👇 یکی از گزینه‌ها را انتخاب کنید:`;
 
 // ==================== SETUP COMPONENTS ====================
