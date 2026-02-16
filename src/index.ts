@@ -42,10 +42,10 @@ bot.use(async (ctx, next) => {
 // ==================== MAIN MENU ====================
 
 const mainInlineKeyboard = () => Markup.inlineKeyboard([
-    [Markup.button.callback('📋 پلن‌های من', 'my_plans')],
+    [Markup.button.callback('📋 اشتراک ‌های من', 'my_plans')],
     [
         Markup.button.callback('💰 افزایش موجودی', 'add_balance'),
-        Markup.button.callback('📦 پلن‌ها', 'view_plans')
+        Markup.button.callback('📦 خرید اشتراک', 'view_plans')
     ],
     [
         Markup.button.callback('🆘 پشتیبانی', 'support'),
@@ -79,7 +79,7 @@ setupFAQ(bot);
 setupSupport(bot);
 
 // Setup Admin (Modular) - Pass main menu for exit
-setupAdmin(bot, getMainMenuText({ firstName: 'کاربر عزیز', balance: 0 }), mainInlineKeyboard());
+setupAdmin(bot, getMainMenuText({ firstName: 'کاربر عزیز'}), mainInlineKeyboard());
 
 // ==================== START ====================
 
