@@ -48,7 +48,7 @@ const generateUUID = () => {
 };
 
 const formatPrice = (price: number): string =>
-    `${price.toLocaleString('')} تومان`;
+    `${price} تومان`;
 
 const formatText = (text: string, replacements: Record<string, string>): string => {
     let result = text;

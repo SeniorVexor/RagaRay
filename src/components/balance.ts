@@ -19,7 +19,7 @@ const MAX_AMOUNT = 10000000;
 // ==================== HELPERS ====================
 
 const formatPrice = (amount: number, currency: string = 'تومان'): string =>
-    `${amount.toLocaleString('')} ${currency}`;
+    `${amount} ${currency}`;
 
 // تولید شماره پرداخت ۵ رقمی
 const generatePaymentNumber = (id: number): string => {

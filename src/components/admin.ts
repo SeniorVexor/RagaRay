@@ -83,16 +83,16 @@ const formatStats = (stats: AdminStats): string =>
     `💳 کل پرداخت‌ها: ${stats.totalPayments}\n` +
     `⏳ پرداخت‌های در انتظار: ${stats.pendingPayments}\n` +
     `🛒 کل خریدها: ${stats.totalPurchases}\n` +
-    `💰 مجموع موجودی کاربران: ${stats.totalBalance.toLocaleString()} تومان`;
+    `💰 مجموع موجودی کاربران: ${stats.totalBalance} تومان`;
 
 const formatUser = (user: any, index: number): string =>
     `${index + 1}. ${user.firstName || 'N/A'} (@${user.username || 'N/A'})\n` +
-    `   🆔: ${user.telegramId} | 💰: ${user.balance.toLocaleString()}\n` +
+    `   🆔: ${user.telegramId} | 💰: ${user.balance}\n` +
     `   📅: ${user.createdAt.toLocaleDateString('')}`;
 
 const formatPayment = (payment: any): string =>
     `🆔 #${payment.id} | 👤 ${payment.user.telegramId}\n` +
-    `💰 ${payment.amount.toLocaleString()} | 🏦 ${payment.method}\n` +
+    `💰 ${payment.amount} | 🏦 ${payment.method}\n` +
     `📅 ${payment.createdAt.toLocaleDateString('')}`;
 
 // ==================== HANDLERS ====================
@@ -173,11 +173,11 @@ const showPayments = async (ctx: BotContext) => {
         const methodEmoji = p.method === 'card' ? '💳' : '🪙';
 
         text += `${methodEmoji} <code>#${paymentNumber}</code> | ${p.method === 'card' ? 'کارت' : 'کریپتو'}\n`;
-        text += `👤 ${p.user.telegramId} | ${p.amount.toLocaleString('')} تومان\n\n`;
+        text += `👤 ${p.user.telegramId} | ${p.amount} تومان\n\n`;
 
         return [
             Markup.button.callback(
-                `${methodEmoji} #${paymentNumber} - ${p.amount.toLocaleString('')}`,
+                `${methodEmoji} #${paymentNumber} - ${p.amount}`,
                 `manage_payment_${p.id}`
             )
         ];
@@ -208,7 +208,7 @@ const managePayment = async (ctx: BotContext, paymentId: number) => {
     text += `🆔 شماره: <code>#${paymentNumber}</code>\n`;
     text += `👤 کاربر: <code>${payment.user.telegramId}</code>\n`;
     text += `👤 نام: ${payment.user.firstName || '—'}\n`;
-    text += `💰 مبلغ: <b>${payment.amount.toLocaleString('')} ${payment.method === 'card' ? 'تومان' : 'USDT'}</b>\n`;
+    text += `💰 مبلغ: <b>${payment.amount} ${payment.method === 'card' ? 'تومان' : 'USDT'}</b>\n`;
     text += `🏦 روش: ${methodName}\n`;
     text += `📅 تاریخ: ${payment.createdAt.toLocaleDateString('')}\n`;
     text += `⏳ وضعیت: <b>در انتظار</b>\n\n`;
@@ -259,8 +259,8 @@ const approvePayment = async (ctx: BotContext, paymentId: number) => {
         payment.user.telegramId,
         `✅ <b>پرداخت شما تایید شد!</b>\n\n` +
         `🆔 شماره: <code>#${paymentNumber}</code>\n` +
-        `💰 مبلغ: ${payment.amount.toLocaleString('')} ${payment.method === 'card' ? 'تومان' : 'USDT'}\n` +
-        `💳 موجودی جدید: ${(payment.user.balance + payment.amount).toLocaleString('')} تومان\n\n` +
+        `💰 مبلغ: ${payment.amount} ${payment.method === 'card' ? 'تومان' : 'USDT'}\n` +
+        `💳 موجودی جدید: ${(payment.user.balance + payment.amount)} تومان\n\n` +
         `🎉 از اعتماد شما سپاسگزاریم.`,
         { parse_mode: 'HTML' }
     );
@@ -271,7 +271,7 @@ const approvePayment = async (ctx: BotContext, paymentId: number) => {
             `✅ <b>پرداخت تایید شد</b>\n\n` +
             `🆔 شماره: <code>#${paymentNumber}</code>\n` +
             `👤 کاربر: ${payment.user.telegramId}\n` +
-            `💰 مبلغ: ${payment.amount.toLocaleString('')} ${payment.method === 'card' ? 'تومان' : 'USDT'}`,
+            `💰 مبلغ: ${payment.amount} ${payment.method === 'card' ? 'تومان' : 'USDT'}`,
             {
                 parse_mode: 'HTML',
                 ...Markup.inlineKeyboard([
@@ -286,7 +286,7 @@ const approvePayment = async (ctx: BotContext, paymentId: number) => {
                 `✅ <b>پرداخت تایید شد</b>\n\n` +
                 `🆔 شماره: <code>#${paymentNumber}</code>\n` +
                 `👤 کاربر: ${payment.user.telegramId}\n` +
-                `💰 مبلغ: ${payment.amount.toLocaleString('')} ${payment.method === 'card' ? 'تومان' : 'USDT'}`,
+                `💰 مبلغ: ${payment.amount} ${payment.method === 'card' ? 'تومان' : 'USDT'}`,
                 {
                     parse_mode: 'HTML',
                     ...Markup.inlineKeyboard([
@@ -316,7 +316,7 @@ const rejectPayment = async (ctx: BotContext, paymentId: number) => {
         payment.user.telegramId,
         `❌ <b>پرداخت شما رد شد</b>\n\n` +
         `🆔 شماره: <code>#${paymentNumber}</code>\n` +
-        `💰 مبلغ: ${payment.amount.toLocaleString('')} ${payment.method === 'card' ? 'تومان' : 'USDT'}\n\n` +
+        `💰 مبلغ: ${payment.amount} ${payment.method === 'card' ? 'تومان' : 'USDT'}\n\n` +
         `📞 لطفاً با پشتیبانی تماس بگیرید:\n` +
         `@${process.env.PAYMENT_CARD_NUMBER_OWNER || 'support'}`,
         { parse_mode: 'HTML' }
@@ -328,7 +328,7 @@ const rejectPayment = async (ctx: BotContext, paymentId: number) => {
             `❌ <b>پرداخت رد شد</b>\n\n` +
             `🆔 شماره: <code>#${paymentNumber}</code>\n` +
             `👤 کاربر: ${payment.user.telegramId}\n` +
-            `💰 مبلغ: ${payment.amount.toLocaleString('')} ${payment.method === 'card' ? 'تومان' : 'USDT'}`,
+            `💰 مبلغ: ${payment.amount} ${payment.method === 'card' ? 'تومان' : 'USDT'}`,
             {
                 parse_mode: 'HTML',
                 ...Markup.inlineKeyboard([
@@ -343,7 +343,7 @@ const rejectPayment = async (ctx: BotContext, paymentId: number) => {
                 `❌ <b>پرداخت رد شد</b>\n\n` +
                 `🆔 شماره: <code>#${paymentNumber}</code>\n` +
                 `👤 کاربر: ${payment.user.telegramId}\n` +
-                `💰 مبلغ: ${payment.amount.toLocaleString('')} ${payment.method === 'card' ? 'تومان' : 'USDT'}`,
+                `💰 مبلغ: ${payment.amount} ${payment.method === 'card' ? 'تومان' : 'USDT'}`,
                 {
                     parse_mode: 'HTML',
                     ...Markup.inlineKeyboard([
