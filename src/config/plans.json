@@ -1,30 +1,35 @@
 {
   "durations": [
-    { "id": 1, "name": "۱ ماهه", "days": 30, "emoji": "📅" }
+    { "id": 1, "name": "1 ماهه", "days": 30, "emoji": "📅" },
   ],
   "trafficOptions": {
     "1": [
-      { "id": "1_20", "traffic": 20, "price": 50000, "connections": 0 }
+      { "id": "1_20",  "traffic": 20,  "price": 50000,  "connections": 0 },
+      { "id": "1_30",  "traffic": 30,  "price": 75000,  "connections": 0 },
+      { "id": "1_40",  "traffic": 40,  "price": 98000,  "connections": 0 },
+      { "id": "1_50",  "traffic": 50,  "price": 120000, "connections": 0 },
+      { "id": "1_60",  "traffic": 60,  "price": 145000, "connections": 0 },
+      { "id": "1_80",  "traffic": 80,  "price": 195000, "connections": 0 }
     ],
     "2": [
-      { "id": "2_60", "traffic": 60, "price": 150000, "connections": 2 },
-      { "id": "2_100", "traffic": 100, "price": 220000, "connections": 3 },
-      { "id": "2_200", "traffic": 200, "price": 350000, "connections": 3 }
+      { "id": "2_20",  "traffic": 20,  "price": 52000,  "connections": 0 },
+      { "id": "2_30",  "traffic": 30,  "price": 78000,  "connections": 0 },
+      { "id": "2_40",  "traffic": 40,  "price": 104000, "connections": 0 },
+      { "id": "2_50",  "traffic": 50,  "price": 130000, "connections": 0 },
+      { "id": "2_60",  "traffic": 60,  "price": 156000, "connections": 0 },
+      { "id": "2_80",  "traffic": 80,  "price": 208000, "connections": 0 },
+      { "id": "2_100", "traffic": 100, "price": 260000, "connections": 0 },
+      { "id": "2_120", "traffic": 120, "price": 310000, "connections": 0 }
     ],
     "3": [
-      { "id": "3_100", "traffic": 100, "price": 300000, "connections": 3 },
-      { "id": "3_200", "traffic": 200, "price": 450000, "connections": 3 },
-      { "id": "3_500", "traffic": 500, "price": 700000, "connections": 5 }
-    ],
-    "6": [
-      { "id": "6_200", "traffic": 200, "price": 500000, "connections": 3 },
-      { "id": "6_500", "traffic": 500, "price": 800000, "connections": 5 },
-      { "id": "6_1000", "traffic": 1000, "price": 1200000, "connections": 5 }
-    ],
-    "12": [
-      { "id": "12_500", "traffic": 500, "price": 900000, "connections": 5 },
-      { "id": "12_1000", "traffic": 1000, "price": 1500000, "connections": 5 },
-      { "id": "12_2000", "traffic": 2000, "price": 2500000, "connections": 5 }
+      { "id": "3_50",  "traffic": 50,  "price": 120000, "connections": 0 },
+      { "id": "3_80",  "traffic": 80,  "price": 190000, "connections": 0 },
+      { "id": "3_100", "traffic": 100, "price": 235000, "connections": 0 },
+      { "id": "3_120", "traffic": 120, "price": 280000, "connections": 0 },
+      { "id": "3_150", "traffic": 150, "price": 350000, "connections": 0 },
+      { "id": "3_200", "traffic": 200, "price": 470000, "connections": 0 },
+      { "id": "3_250", "traffic": 250, "price": 590000, "connections": 0 },
+      { "id": "3_300", "traffic": 300, "price": 700000, "connections": 0 }
     ]
   },
   "messages": {
