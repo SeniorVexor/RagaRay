@@ -13,8 +13,8 @@ const { methods } = balanceConfig;
 
 // ==================== CONSTANTS ====================
 
-const MIN_AMOUNT = 200000;
-const MAX_AMOUNT = 10000000;
+const MIN_AMOUNT = 20000;
+const MAX_AMOUNT = 1000000;
 
 // ==================== HELPERS ====================
 
