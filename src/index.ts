@@ -1,6 +1,7 @@
 import {Markup, session, Telegraf} from 'telegraf';
 import {prisma} from './prisma/client';
 import {BotContext} from './types';
+import { isAdminUser } from './utils/adminAuth';
 import {setupFAQ} from './components/faq';
 import {setupAdmin} from './components/admin';
 import * as fs from 'fs';
@@ -80,6 +81,9 @@ setupSupport(bot);
 
 // Setup Admin (Modular) - Pass main menu for exit
 setupAdmin(bot, getMainMenuText({ firstName: 'کاربر عزیز'}), mainInlineKeyboard());
+import { registerAdminConfigs } from './handlers/adminConfigs';
+registerAdminConfigs(bot);
+
 
 // ==================== START ====================
 
@@ -166,11 +170,35 @@ bot.action('server_test', async (ctx) => {
 });
 
 // ==================== ERROR HANDLER ====================
+bot.action(/edit_user_(\d+)/, async (ctx) => {
+    const userId = parseInt(ctx.match[1]);
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+        await ctx.reply('❌ کاربر یافت نشد.');
+        return;
+    }
+    await ctx.reply(
+        `ویرایش کاربر ${user.username || user.telegramId}\n` +
+        `موجودی فعلی: ${user.balance}\n` +
+        `برای تغییر موجودی: /set_balance ${userId} 100000`
+    );
+});
+
+bot.command(/set_balance (\d+) (\d+)/, async (ctx: BotContext) => {
+    if (!isAdminUser(ctx)) return;
+    if (!ctx.match) return;
+    const userId = parseInt(ctx.match[1]);
+    const newBalance = parseFloat(ctx.match[2]);
+    await prisma.user.update({ where: { id: userId }, data: { balance: newBalance } });
+    await ctx.reply('ویرایش شد!');
+});
 
 bot.catch((err, ctx) => {
     console.error(`Error for ${ctx.updateType}`, err);
     ctx.reply('❌ خطایی رخ داد. لطفاً دوباره تلاش کنید.').catch(console.error);
 });
+
+
 
 // ==================== LAUNCH ====================
 

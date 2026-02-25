@@ -43,7 +43,16 @@ export interface BotSession extends Scenes.SceneSession {
     awaitingAmount?: boolean;
     awaitingReceipt?: boolean;
     awaitingConfigName?: boolean;
-    adminState?: 'broadcast' | 'edit_settings' | 'view_user' | null;
+    // وضعیت‌های مختلف ویزارد ادمین (برودکست، تنظیمات، ویرایش یوزر/کانفیگ‌ها)
+    adminState?:
+        | 'broadcast'
+        | 'edit_settings'
+        | 'view_user'
+        | 'edit_plans_json'
+        | 'edit_subs_json'
+        | 'edit_servers_json'
+        | 'edit_user_balance'
+        | null;
     selectedUserId?: number;
     selectedServer?: number;
     selectedService?: string;

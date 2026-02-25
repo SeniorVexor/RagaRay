@@ -3,6 +3,7 @@ import { BotContext, AdminStats } from '../types';
 import { prisma } from '../prisma/client';
 import * as fs from 'fs';
 import * as path from 'path';
+import { isAdminUser } from '../utils/adminAuth';
 
 // Load admin config
 const adminConfig = JSON.parse(
@@ -20,7 +21,8 @@ const adminMainKeyboard = () => Markup.inlineKeyboard([
     ],
     [
         Markup.button.callback(buttons.payments, 'admin_payments'),
-        Markup.button.callback(buttons.plans, 'admin_plans')
+        // دکمه پلن‌ها → منوی مدیریت کانفیگ‌ها (plans/subs/servers)
+        Markup.button.callback(buttons.plans, 'admin_configs')
     ],
     [
         Markup.button.callback(buttons.broadcast, 'admin_broadcast'),
@@ -32,6 +34,12 @@ const adminMainKeyboard = () => Markup.inlineKeyboard([
 const adminBackKeyboard = (callback: string = 'back_admin') =>
     Markup.inlineKeyboard([[Markup.button.callback(buttons.back, callback)]]);
 
+const adminRefreshKeyboard = (callback: string) =>
+    Markup.inlineKeyboard([
+        [Markup.button.callback(buttons.refresh, callback)],
+        [Markup.button.callback(buttons.back, 'back_admin')]
+    ]);
+
 const adminPaymentActions = (paymentId: number) => Markup.inlineKeyboard([
     [
         Markup.button.callback(buttons.approve, `approve_pay_${paymentId}`),
@@ -40,12 +48,6 @@ const adminPaymentActions = (paymentId: number) => Markup.inlineKeyboard([
     [Markup.button.callback(buttons.back, 'admin_payments')]
 ]);
 
-const adminRefreshKeyboard = (callback: string) =>
-    Markup.inlineKeyboard([
-        [Markup.button.callback(buttons.refresh, callback)],
-        [Markup.button.callback(buttons.back, 'back_admin')]
-    ]);
-
 // ==================== HELPERS ====================
 
 const generatePaymentNumber = (id: number): string => {
@@ -53,10 +55,7 @@ const generatePaymentNumber = (id: number): string => {
 };
 
 const isAdmin = async (ctx: BotContext): Promise<boolean> => {
-    const user = await prisma.user.findUnique({
-        where: { telegramId: ctx.from!.id.toString() }
-    });
-    return user?.isAdmin || ctx.from!.id.toString() === process.env.ADMIN_ID;
+    return isAdminUser(ctx);
 };
 
 const getStats = async (): Promise<AdminStats> => {
@@ -88,12 +87,12 @@ const formatStats = (stats: AdminStats): string =>
 const formatUser = (user: any, index: number): string =>
     `${index + 1}. ${user.firstName || 'N/A'} (@${user.username || 'N/A'})\n` +
     `   🆔: ${user.telegramId} | 💰: ${user.balance}\n` +
-    `   📅: ${user.createdAt.toLocaleDateString('')}`;
+    `   📅: ${user.createdAt.toLocaleDateString()}`;
 
 const formatPayment = (payment: any): string =>
     `🆔 #${payment.id} | 👤 ${payment.user.telegramId}\n` +
     `💰 ${payment.amount} | 🏦 ${payment.method}\n` +
-    `📅 ${payment.createdAt.toLocaleDateString('')}`;
+    `📅 ${payment.createdAt.toLocaleDateString()}`;
 
 // ==================== HANDLERS ====================
 
@@ -141,6 +140,10 @@ const showUsers = async (ctx: BotContext) => {
     const text = users.length > 0
         ? `${messages.usersTitle}:\n\n${users.map(formatUser).join('\n\n')}`
         : '👥 هیچ کاربری یافت نشد.';
+    const keyboard = users.map(u => [
+        Markup.button.callback(u.username || 'بدون یوزرنیم', `edit_user_${u.id}`)
+    ]);
+    await ctx.editMessageText('لیست کاربرها', Markup.inlineKeyboard(keyboard));
 
     await ctx.editMessageText(text, adminBackKeyboard());
     await ctx.answerCbQuery();

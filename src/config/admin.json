@@ -33,10 +33,13 @@
     "items": [
       { "key": "payment_card", "label": "💳 شماره کارت", "env": "PAYMENT_CARD_NUMBER" },
       { "key": "crypto_wallet", "label": "🪙 آدرس کریپتو", "env": "CRYPTO_WALLET" },
-      { "key": "admin_id", "label": "👤 آیدی ادمین", "env": "ADMIN_ID" },
+      { "key": "admin_id", "label": "👤 آیدی ادمین (ENV fallback)", "env": "ADMIN_ID" },
       { "key": "channel", "label": "📢 کانال", "env": "CHANNEL_ID" }
     ]
   },
+  "adminIds": [
+    "123456789"
+  ],
   "admins": {
     "payments": {
       "numbercard": "6219861072055857"
