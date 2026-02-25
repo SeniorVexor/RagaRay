@@ -1,6 +1,6 @@
 {
   "durations": [
-    { "id": 1, "name": "1 ماهه", "days": 30, "emoji": "📅" },
+    { "id": 1, "name": "1 ماهه", "days": 30, "emoji": "📅" }
   ],
   "trafficOptions": {
     "1": [
