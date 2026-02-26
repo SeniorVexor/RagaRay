@@ -3,13 +3,15 @@ import {prisma} from './prisma/client';
 import {BotContext} from './types';
 import { isAdminUser } from './utils/adminAuth';
 import {setupFAQ} from './components/faq';
-import {setupAdmin} from './components/admin';
+import {setupAdmin} from './handlers/admin';  // ← AVAZ SHOD
 import * as fs from 'fs';
 import * as path from 'path';
 import {setupPlans} from "./components/plans";
 import {setupBalance} from "./components/balance";
 import {setupMyPlans} from "./components/myplans";
 import {setupSupport} from "./components/support";
+import { setupAdminSubs } from './handlers/adminSubs';
+import { registerAdminConfigs } from './handlers/adminConfigs';
 
 // Load configs
 const plansConfig = JSON.parse(fs.readFileSync(path.join(__dirname, 'config/plans.json'), 'utf-8'));
@@ -81,9 +83,8 @@ setupSupport(bot);
 
 // Setup Admin (Modular) - Pass main menu for exit
 setupAdmin(bot, getMainMenuText({ firstName: 'کاربر عزیز'}), mainInlineKeyboard());
-import { registerAdminConfigs } from './handlers/adminConfigs';
 registerAdminConfigs(bot);
-
+setupAdminSubs(bot);  // ← INO EZAFE KARDAM
 
 // ==================== START ====================
 
@@ -198,21 +199,19 @@ bot.catch((err, ctx) => {
     ctx.reply('❌ خطایی رخ داد. لطفاً دوباره تلاش کنید.').catch(console.error);
 });
 
-
-
 // ==================== LAUNCH ====================
 
 // ──── Webhook Setup ────
 if (process.env.NODE_ENV === 'production') {
-    const webhookDomain = process.env.WEBHOOK_DOMAIN || 'https://your-app-name.onrender.com';  // مثلاً https://ragaray-bot.onrender.com
-    const secretPath = `/telegraf/${process.env.BOT_TOKEN!.slice(-10)}`;  // مسیر مخفی برای امنیت
+    const webhookDomain = process.env.WEBHOOK_DOMAIN || 'https://your-app-name.onrender.com';
+    const secretPath = `/telegraf/${process.env.BOT_TOKEN!.slice(-10)}`;
 
     bot.launch({
         webhook: {
             domain: webhookDomain,
-            hookPath: secretPath,          // مسیر webhook → https://your-app.onrender.com/telegraf/abc123xyz
+            hookPath: secretPath,
             port: Number(process.env.PORT) || 3000,
-            secretToken: process.env.WEBHOOK_SECRET || 'your-random-secret-32-chars',  // اختیاری ولی خیلی توصیه می‌شه
+            secretToken: process.env.WEBHOOK_SECRET || 'your-random-secret-32-chars',
         },
     })
         .then(() => {
@@ -222,7 +221,6 @@ if (process.env.NODE_ENV === 'production') {
             console.error('Webhook launch failed:', err);
         });
 } else {
-    // برای توسعه محلی → polling معمولی
     bot.launch();
     console.log('🤖 Bot running in polling mode (development)');
 }

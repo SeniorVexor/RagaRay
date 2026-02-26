@@ -52,6 +52,7 @@ export interface BotSession extends Scenes.SceneSession {
         | 'edit_subs_json'
         | 'edit_servers_json'
         | 'edit_user_balance'
+        | `add_link_${string}_${string}`
         | null;
     selectedUserId?: number;
     selectedServer?: number;
